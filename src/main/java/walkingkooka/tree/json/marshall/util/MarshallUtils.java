@@ -33,11 +33,11 @@ public final class MarshallUtils implements PublicStaticHelper {
     /**
      * {@see JsonNodeMarshallUnmarshallMapperFunction}
      */
-    public static <T> UnaryOperator<JsonNode> mapper(final Class<T> type,
-                                                     final JsonNodeUnmarshallContext unmarshallContext,
-                                                     final JsonNodeMarshallContext marshallContext,
-                                                     final Function<T, T> mapper) {
-        return JsonNodeMarshallUnmarshallMapperFunction.with(type, unmarshallContext, marshallContext, mapper);
+    public static <I, O> UnaryOperator<JsonNode> mapper(final Class<I> inputType,
+                                                        final JsonNodeUnmarshallContext unmarshallContext,
+                                                        final JsonNodeMarshallContext marshallContext,
+                                                        final Function<I, O> mapper) {
+        return JsonNodeMarshallUnmarshallMapperFunction.with(inputType, unmarshallContext, marshallContext, mapper);
     }
 
     /**

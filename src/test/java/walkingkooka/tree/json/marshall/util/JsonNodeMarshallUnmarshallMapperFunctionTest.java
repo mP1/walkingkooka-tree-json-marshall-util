@@ -37,9 +37,9 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements FunctionTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal>, JsonNode, JsonNode>,
-        ClassTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal>>,
-        ToStringTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal>> {
+public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements FunctionTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>, JsonNode, JsonNode>,
+        ClassTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>>,
+        ToStringTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>> {
 
     private final static JsonNodeUnmarshallContext UNMARSHALL_CONTEXT = JsonNodeUnmarshallContexts.basic(
             ExpressionNumberContexts.basic(
@@ -50,7 +50,7 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
 
     private final static JsonNodeMarshallContext MARSHALL_CONTEXT = JsonNodeMarshallContexts.basic();
 
-    private final static Function<BigDecimal, BigDecimal> MAPPER = (b) -> b.multiply(BigDecimal.TEN);
+    private final static Function<BigDecimal, String> MAPPER = (b) -> b.toPlainString();
 
 // with.............................................................................................................
 
@@ -97,7 +97,7 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
     private void withFails(final Class<BigDecimal> type,
                            final JsonNodeUnmarshallContext unmarshallContext,
                            final JsonNodeMarshallContext marshallContext,
-                           final Function<BigDecimal, BigDecimal> mapper) {
+                           final Function<BigDecimal, String> mapper) {
 
         assertThrows(NullPointerException.class, () -> JsonNodeMarshallUnmarshallMapperFunction.with(
                 type,
@@ -111,7 +111,7 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
     public void testApply() {
         this.applyAndCheck(
                 MARSHALL_CONTEXT.marshall(BigDecimal.valueOf(10.5)),
-                MARSHALL_CONTEXT.marshall(BigDecimal.valueOf(10.5 * 10))
+                MARSHALL_CONTEXT.marshall("10.5")
         );
     }
 
@@ -121,7 +121,7 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
     }
 
     @Override
-    public JsonNodeMarshallUnmarshallMapperFunction<BigDecimal> createFunction() {
+    public JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String> createFunction() {
         return JsonNodeMarshallUnmarshallMapperFunction.with(
                 BigDecimal.class,
                 UNMARSHALL_CONTEXT,
@@ -131,7 +131,7 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
     }
 
     @Override
-    public Class<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal>> type() {
+    public Class<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>> type() {
         return Cast.to(JsonNodeMarshallUnmarshallMapperFunction.class);
     }
 
