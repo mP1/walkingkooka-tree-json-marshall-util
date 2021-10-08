@@ -28,25 +28,25 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link Function} that unmarshalls an object from JSON, invokes a mapper and then marshalls that result back to JSON.
  */
-final class JsonNodeMarshallUnmarshallMapperFunction<T> implements UnaryOperator<JsonNode> {
+final class JsonNodeMarshallUnmarshallMapperFunction<I, O> implements UnaryOperator<JsonNode> {
 
-    static <T> JsonNodeMarshallUnmarshallMapperFunction<T> with(final Class<T> type,
-                                                                final JsonNodeUnmarshallContext unmarshallContext,
-                                                                final JsonNodeMarshallContext marshallContext,
-                                                                final Function<T, T> mapper) {
-        Objects.requireNonNull(type, "type");
+    static <I, O> JsonNodeMarshallUnmarshallMapperFunction<I, O> with(final Class<I> inputType,
+                                                                      final JsonNodeUnmarshallContext unmarshallContext,
+                                                                      final JsonNodeMarshallContext marshallContext,
+                                                                      final Function<I, O> mapper) {
+        Objects.requireNonNull(inputType, "inputType");
         Objects.requireNonNull(unmarshallContext, "unmarshallContext");
         Objects.requireNonNull(marshallContext, "marshallContext");
         Objects.requireNonNull(mapper, "mapper");
 
-        return new JsonNodeMarshallUnmarshallMapperFunction<>(type, unmarshallContext, marshallContext, mapper);
+        return new JsonNodeMarshallUnmarshallMapperFunction<>(inputType, unmarshallContext, marshallContext, mapper);
     }
 
-    private JsonNodeMarshallUnmarshallMapperFunction(final Class<T> type,
+    private JsonNodeMarshallUnmarshallMapperFunction(final Class<I> inputType,
                                                      final JsonNodeUnmarshallContext unmarshallContext,
                                                      final JsonNodeMarshallContext marshallContext,
-                                                     final Function<T, T> mapper) {
-        this.type = type;
+                                                     final Function<I, O> mapper) {
+        this.inputType = inputType;
         this.unmarshallContext = unmarshallContext;
         this.marshallContext = marshallContext;
         this.mapper = mapper;
@@ -56,7 +56,7 @@ final class JsonNodeMarshallUnmarshallMapperFunction<T> implements UnaryOperator
     public JsonNode apply(final JsonNode jsonNode) {
         return this.marshallContext.marshall(
                 this.mapper.apply(
-                        this.unmarshallContext.unmarshall(jsonNode, this.type)
+                        this.unmarshallContext.unmarshall(jsonNode, this.inputType)
                 )
         );
     }
@@ -64,7 +64,7 @@ final class JsonNodeMarshallUnmarshallMapperFunction<T> implements UnaryOperator
     /**
      * The java type that will be unmarshalled.
      */
-    private final Class<T> type;
+    private final Class<I> inputType;
 
     /**
      * A context used to unmarshall the given {@link JsonNode}
@@ -79,7 +79,7 @@ final class JsonNodeMarshallUnmarshallMapperFunction<T> implements UnaryOperator
     /**
      * The mapper {@link Function}.
      */
-    private final Function<T, T> mapper;
+    private final Function<I, O> mapper;
 
     @Override
     public String toString() {
