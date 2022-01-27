@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
@@ -42,10 +41,8 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
         ToStringTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>> {
 
     private final static JsonNodeUnmarshallContext UNMARSHALL_CONTEXT = JsonNodeUnmarshallContexts.basic(
-            ExpressionNumberContexts.basic(
-                    ExpressionNumberKind.BIG_DECIMAL,
-                    MathContext.DECIMAL32
-            )
+            ExpressionNumberKind.BIG_DECIMAL,
+            MathContext.DECIMAL32
     );
 
     private final static JsonNodeMarshallContext MARSHALL_CONTEXT = JsonNodeMarshallContexts.basic();

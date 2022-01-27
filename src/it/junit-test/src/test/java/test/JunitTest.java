@@ -24,7 +24,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.function.Function;
 
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.util.MarshallUtils;
@@ -41,10 +40,8 @@ public class JunitTest {
         MarshallUtils.mapper(
                 BigDecimal.class,
                 JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberContexts.basic(
-                                ExpressionNumberKind.BIG_DECIMAL,
-                                MathContext.DECIMAL32
-                        )
+                        ExpressionNumberKind.BIG_DECIMAL,
+                        MathContext.DECIMAL32
                 ),
                 JsonNodeMarshallContexts.basic(),
                 Function.identity()
