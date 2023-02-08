@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.function.Function;
 
+import walkingkooka.j2cl.locale.LocaleAware;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.util.MarshallUtils;
@@ -14,6 +15,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
+@LocaleAware
 public class TestGwtTest extends GWTTestCase {
 
     @Override
