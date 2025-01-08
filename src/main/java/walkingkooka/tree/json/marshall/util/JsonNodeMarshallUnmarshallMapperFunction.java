@@ -55,9 +55,9 @@ final class JsonNodeMarshallUnmarshallMapperFunction<I, O> implements UnaryOpera
     @Override
     public JsonNode apply(final JsonNode jsonNode) {
         return this.marshallContext.marshall(
-                this.mapper.apply(
-                        this.unmarshallContext.unmarshall(jsonNode, this.inputType)
-                )
+            this.mapper.apply(
+                this.unmarshallContext.unmarshall(jsonNode, this.inputType)
+            )
         );
     }
 
