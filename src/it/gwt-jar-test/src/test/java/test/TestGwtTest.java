@@ -25,20 +25,20 @@ public class TestGwtTest extends GWTTestCase {
 
     public void testAssertEquals() {
         assertEquals(
-                1,
-                1
+            1,
+            1
         );
     }
 
     public void testMapper() {
         MarshallUtils.mapper(
-                BigDecimal.class,
-                JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberKind.BIG_DECIMAL,
-                        MathContext.DECIMAL32
-                ),
-                JsonNodeMarshallContexts.basic(),
-                Function.identity()
+            BigDecimal.class,
+            JsonNodeUnmarshallContexts.basic(
+                ExpressionNumberKind.BIG_DECIMAL,
+                MathContext.DECIMAL32
+            ),
+            JsonNodeMarshallContexts.basic(),
+            Function.identity()
         );
     }
 }

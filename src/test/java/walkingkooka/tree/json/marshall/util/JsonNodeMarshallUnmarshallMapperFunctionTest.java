@@ -37,12 +37,12 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements FunctionTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>, JsonNode, JsonNode>,
-        ClassTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>>,
-        ToStringTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>> {
+    ClassTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>>,
+    ToStringTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>> {
 
     private final static JsonNodeUnmarshallContext UNMARSHALL_CONTEXT = JsonNodeUnmarshallContexts.basic(
-            ExpressionNumberKind.BIG_DECIMAL,
-            MathContext.DECIMAL32
+        ExpressionNumberKind.BIG_DECIMAL,
+        MathContext.DECIMAL32
     );
 
     private final static JsonNodeMarshallContext MARSHALL_CONTEXT = JsonNodeMarshallContexts.basic();
@@ -54,40 +54,40 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
     @Test
     public void testWithNullTypeFails() {
         withFails(
-                null,
-                UNMARSHALL_CONTEXT,
-                MARSHALL_CONTEXT,
-                MAPPER
+            null,
+            UNMARSHALL_CONTEXT,
+            MARSHALL_CONTEXT,
+            MAPPER
         );
     }
 
     @Test
     public void testWithNullUnmarshallContextFails() {
         withFails(
-                BigDecimal.class,
-                null,
-                MARSHALL_CONTEXT,
-                MAPPER
+            BigDecimal.class,
+            null,
+            MARSHALL_CONTEXT,
+            MAPPER
         );
     }
 
     @Test
     public void testWithNullMarshallContextFails() {
         withFails(
-                BigDecimal.class,
-                UNMARSHALL_CONTEXT,
-                null,
-                MAPPER
+            BigDecimal.class,
+            UNMARSHALL_CONTEXT,
+            null,
+            MAPPER
         );
     }
 
     @Test
     public void testWithNullMapperFails() {
         withFails(
-                BigDecimal.class,
-                UNMARSHALL_CONTEXT,
-                MARSHALL_CONTEXT,
-                null
+            BigDecimal.class,
+            UNMARSHALL_CONTEXT,
+            MARSHALL_CONTEXT,
+            null
         );
     }
 
@@ -97,18 +97,18 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
                            final Function<BigDecimal, String> mapper) {
 
         assertThrows(NullPointerException.class, () -> JsonNodeMarshallUnmarshallMapperFunction.with(
-                type,
-                unmarshallContext,
-                marshallContext,
-                mapper
+            type,
+            unmarshallContext,
+            marshallContext,
+            mapper
         ));
     }
 
     @Test
     public void testApply() {
         this.applyAndCheck(
-                MARSHALL_CONTEXT.marshall(BigDecimal.valueOf(10.5)),
-                MARSHALL_CONTEXT.marshall("10.5")
+            MARSHALL_CONTEXT.marshall(BigDecimal.valueOf(10.5)),
+            MARSHALL_CONTEXT.marshall("10.5")
         );
     }
 
@@ -120,10 +120,10 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
     @Override
     public JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String> createFunction() {
         return JsonNodeMarshallUnmarshallMapperFunction.with(
-                BigDecimal.class,
-                UNMARSHALL_CONTEXT,
-                MARSHALL_CONTEXT,
-                MAPPER
+            BigDecimal.class,
+            UNMARSHALL_CONTEXT,
+            MARSHALL_CONTEXT,
+            MAPPER
         );
     }
 
