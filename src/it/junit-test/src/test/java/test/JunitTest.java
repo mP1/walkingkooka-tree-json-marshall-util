@@ -40,6 +40,9 @@ public class JunitTest {
         MarshallUtils.mapper(
             BigDecimal.class,
             JsonNodeUnmarshallContexts.basic(
+                (String cc) -> {
+                    throw new UnsupportedOperationException();
+                },
                 ExpressionNumberKind.BIG_DECIMAL,
                 MathContext.DECIMAL32
             ),
