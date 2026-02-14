@@ -41,6 +41,9 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
     ToStringTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>> {
 
     private final static JsonNodeUnmarshallContext UNMARSHALL_CONTEXT = JsonNodeUnmarshallContexts.basic(
+        (String cc) -> {
+            throw new UnsupportedOperationException();
+        },
         ExpressionNumberKind.BIG_DECIMAL,
         MathContext.DECIMAL32
     );
