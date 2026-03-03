@@ -20,6 +20,7 @@ package walkingkooka.tree.json.marshall.util;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -41,13 +42,8 @@ public final class JsonNodeMarshallUnmarshallMapperFunctionTest implements Funct
     ToStringTesting<JsonNodeMarshallUnmarshallMapperFunction<BigDecimal, String>> {
 
     private final static JsonNodeUnmarshallContext UNMARSHALL_CONTEXT = JsonNodeUnmarshallContexts.basic(
-        (String cc) -> {
-            throw new UnsupportedOperationException();
-        },
-        (String lt) -> {
-            throw new UnsupportedOperationException();
-        },
         ExpressionNumberKind.BIG_DECIMAL,
+        CurrencyLocaleContexts.fake(), // CurrencyCodeLanguageTagContext
         MathContext.DECIMAL32
     );
 
